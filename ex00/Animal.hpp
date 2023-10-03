@@ -7,9 +7,9 @@ class Animal
 {
 	public:
 		Animal();
-		~Animal();
+		virtual ~Animal();
 
-		void makeSound() const;
+		virtual void makeSound() const;
 		std::string getType() const;
 	protected:
 		std::string type;

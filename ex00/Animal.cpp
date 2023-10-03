@@ -20,7 +20,6 @@ std::string Animal::getType() const
 	return (type);
 }
 
-
 Dog::Dog()
 {
 	std::cout << "Dog constructor called" << std::endl;

@@ -1,6 +1,6 @@
 NAME = Animal
 CC = c++
-SRC = main.cpp Animal.cpp
+SRC = main.cpp Animal.cpp WrongAnimal.cpp
 OBJ = $(SRC:.cpp=.o)
 CPPFLAGS = -Wall -Wextra -Werror -std=c++98
 
