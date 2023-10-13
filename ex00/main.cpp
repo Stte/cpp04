@@ -24,6 +24,7 @@ int main(void)
 	delete (meta);
 	delete (dog);
 	delete (cat);
+	delete (catAnimal);
 
 	std::cout << "===== Wrong Animal ===== " << std::endl;
 
