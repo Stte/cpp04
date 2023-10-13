@@ -1,6 +1,6 @@
 NAME = nice
 CC = c++
-SRC = main.cpp AMateria.cpp Character.cpp Ice.cpp
+SRC = main.cpp AMateria.cpp Character.cpp Ice.cpp Cure.cpp MateriaSource.cpp MateriaLandfill.cpp
 OBJ = $(SRC:.cpp=.o)
 CPPFLAGS = -Wall -Wextra -Werror -std=c++98 -g
 

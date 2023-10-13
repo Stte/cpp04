@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 18:22:44 by tspoof            #+#    #+#             */
-/*   Updated: 2023/10/11 18:31:36 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/10/12 18:01:54 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,29 +16,43 @@ MateriaSource::MateriaSource()
 {
 	for (int i = 0; i < max_materia; i++)
 	{
-		materias[i] = NULL;
+		this->materias[i] = NULL;
 	}
 }
 
 MateriaSource::~MateriaSource()
 {
+	for (int i = 0; i < max_materia; i++)
+	{
+		delete this->materias[i];
+		this->materias[i] = NULL;
+	}
 }
 
 MateriaSource::MateriaSource(const MateriaSource &ms)
 {
+	*this = ms;
 }
 
 MateriaSource &MateriaSource::operator=(const MateriaSource &ms)
 {
+	for (int i = 0; i < max_materia; i++)
+	{
+		if (this->materias[i])
+			delete this->materias[i];
+		if (ms.materias[i])
+			this->materias[i] = ms.materias[i]->clone();
+	}
+	return (*this);
 }
 
 void MateriaSource::learnMateria(AMateria *ms)
 {
 	for (int i = 0; i < max_materia; i++)
 	{
-		if (!materias[i])
+		if (!this->materias[i])
 		{
-			materias[i] = ms;
+			this->materias[i] = ms;
 			break;
 		}
 	}
@@ -46,4 +60,10 @@ void MateriaSource::learnMateria(AMateria *ms)
 
 AMateria *MateriaSource::createMateria(std::string const &type)
 {
+	for (int i = 0; i < max_materia; i++)
+	{
+		if (this->materias[i] && this->materias[i]->getType() == type)
+			return (this->materias[i]->clone());
+	}
+	return (NULL);
 }

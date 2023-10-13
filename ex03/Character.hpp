@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 16:05:21 by tspoof            #+#    #+#             */
-/*   Updated: 2023/10/11 18:07:54 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/10/12 16:12:13 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define ICHARACTER_HPP
 
 #include "ICharacter.hpp"
+#include "MateriaLandfill.hpp"
 
 class Character : public ICharacter
 {
@@ -29,9 +30,10 @@ public:
 	void use(int idx, ICharacter &target);
 
 private:
+	static const int inventory_size = 4;
 	std::string name;
-	AMateria *inventory[4];
-	AMateria *floor;
+	AMateria *inventory[inventory_size];
+	MateriaLandfill *landfill;
 };
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 16:26:24 by tspoof            #+#    #+#             */
-/*   Updated: 2023/10/11 18:10:52 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/10/12 17:13:35 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,21 @@
 
 Character::Character(std::string name) : name(name)
 {
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < inventory_size; i++)
 	{
-		inventory[i] = NULL;
+		this->inventory[i] = NULL;
 	}
 }
 
 Character::~Character()
 {
-	// delete[] *inventory;
+	for (int i = 0; i < inventory_size; i++)
+	{
+		delete (this->inventory[i]);
+		this->inventory[i] = NULL;
+	}
+	delete this->landfill;
+	this->landfill = NULL;
 }
 
 Character::Character(const Character &character)
@@ -32,22 +38,27 @@ Character::Character(const Character &character)
 
 Character &Character::operator=(const Character &character)
 {
-	name = character.name;
+	this->name = character.name;
+	for (int i = 0; i < inventory_size; i++)
+	{
+		delete this->inventory[i];
+		this->inventory[i] = character.inventory[i]->clone();
+	}
 	return (*this);
 }
 
 std::string const &Character::getName() const
 {
-	return (name);
+	return (this->name);
 }
 
 void Character::equip(AMateria *m)
 {
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < inventory_size; i++)
 	{
-		if (!inventory[i])
+		if (!this->inventory[i])
 		{
-			inventory[i] = m;
+			this->inventory[i] = m;
 			break;
 		}
 	}
@@ -55,14 +66,16 @@ void Character::equip(AMateria *m)
 
 void Character::unequip(int idx)
 {
-	if (!inventory[idx])
+	if (!this->inventory[idx])
 		return;
-	floor = inventory[idx];
-	inventory[idx] = NULL;
+	MateriaLandfill *dropped = new MateriaLandfill(this->inventory[idx]);
+	dropped->next = landfill;
+	landfill = dropped;
+	this->inventory[idx] = NULL;
 }
 
 void Character::use(int idx, ICharacter &target)
 {
-	if (inventory[idx])
-		inventory[idx]->use(target);
+	if (this->inventory[idx])
+		this->inventory[idx]->use(target);
 }

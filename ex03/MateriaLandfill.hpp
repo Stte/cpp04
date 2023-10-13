@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   MateriaSource.hpp                                  :+:      :+:    :+:   */
+/*   MateriaLandfill.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/11 18:16:16 by tspoof            #+#    #+#             */
-/*   Updated: 2023/10/12 09:57:24 by tspoof           ###   ########.fr       */
+/*   Created: 2023/10/12 11:03:34 by tspoof            #+#    #+#             */
+/*   Updated: 2023/10/12 17:12:55 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MATERIA_SOURCE_HPP
-#define MATERIA_SOURCE_HPP
+#ifndef MATERIA_LANDFILL_HPP
+#define MATERIA_LANDFILL_HPP
 
-#include "IMateriaSource.hpp"
 #include "AMateria.hpp"
 
-class MateriaSource : public IMateriaSource
+class MateriaLandfill
 {
 public:
-	MateriaSource();
-	~MateriaSource();
-	MateriaSource(const MateriaSource &ms);
-	MateriaSource &operator=(const MateriaSource &ms);
+	MateriaLandfill(AMateria *materia);
+	~MateriaLandfill();
+	MateriaLandfill(const MateriaLandfill &ml);
+	MateriaLandfill &operator=(const MateriaLandfill &ml);
 
-	void learnMateria(AMateria *ms);
-	AMateria *createMateria(std::string const &type);
-
-private:
-	static const int max_materia = 4;
-	AMateria *materias[max_materia];
+	AMateria *materia;
+	MateriaLandfill *next;
 };
 
 #endif
